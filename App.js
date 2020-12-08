@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import React, {useState} from "react";
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import BlockRGB from "./components/BlockRGB";
@@ -8,48 +15,46 @@ import BlockRGB from "./components/BlockRGB";
 function HomeScreen({ navigation }) {
   const [colorArray, setColorArray] = useState([]);
 
-function renderItem({ item }) {
-   return (
-     <TouchableOpacity
-       onPress={() => navigation.navigate("DetailsScreen", { ...item })}
-     >
-       <BlockRGB red={item.red} green={item.green} blue={item.blue} />
-     </TouchableOpacity>
-   );
- }
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button onPress={addColor} title="Add Color" />,
+    });
+  });
 
-function addColor() {
-   setColorArray([
-     ...colorArray,
-     {
-       red: Math.floor(Math.random() * 256),
-       green: Math.floor(Math.random() * 256),
-       blue: Math.floor(Math.random() * 256),
-       id: `${colorArray.length.toString()}`,
-     },
-   ]);
- }
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <Button onPress={resetColor} title="Reset Color" />,
+    });
+  });
 
-function resetColor() {
-  setColorArray([]);
-}
+  function renderItem({ item }) {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("DetailsScreen", { ...item })}
+      >
+        <BlockRGB red={item.red} green={item.green} blue={item.blue} />
+      </TouchableOpacity>
+    );
+  }
+
+  function addColor() {
+    setColorArray([
+      ...colorArray,
+      {
+        red: Math.floor(Math.random() * 256),
+        green: Math.floor(Math.random() * 256),
+        blue: Math.floor(Math.random() * 256),
+        id: `${colorArray.length.toString()}`,
+      },
+    ]);
+  }
+
+  function resetColor() {
+    setColorArray([]);
+  }
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-       style={{ height: 40, justifyContent: "center", width: "25%", backgroundColor: "black", margin: 10, borderRadius: 10 }}
-       onPress={addColor}
-     >
-       <Text style={{ color: "tomato", textAlign: "center" }}>Add colour</Text>
-     </TouchableOpacity>
-
-     <TouchableOpacity
-       style={{ height: 40, justifyContent: "center", width: "25%", backgroundColor: "brown", margin: 10, borderRadius: 10 }}
-       onPress={resetColor}
-     >
-       <Text style={{ color: "violet", textAlign: "center" }}>Reset</Text>
-     </TouchableOpacity>
-
+    <View style={styles.container}>      
       <FlatList
         style={{ width: "100%" }}
         data={colorArray}
@@ -61,7 +66,7 @@ function resetColor() {
 
 function DetailsScreen({ route }) {
   const { red, green, blue } = route.params;
-  
+
   return (
     <View
       style={[
@@ -76,7 +81,7 @@ function DetailsScreen({ route }) {
       </View>
     </View>
   );
- }
+}
 
 const Stack = createStackNavigator();
 
@@ -100,5 +105,5 @@ const styles = StyleSheet.create({
   detailText: {
     fontSize: 36,
     padding: 20,
-  }
+  },
 });
