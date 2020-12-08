@@ -12,6 +12,10 @@ function HomeScreen() {
     { red: 128, green: 0, blue: 255, id: "2" },
   ]);
 
+function renderItem({ item }) {
+    return <BlockRGB red={item.red} green={item.green} blue={item.blue} />;
+  }
+
 function addColor() {
    setColorArray([
      ...colorArray,
@@ -19,14 +23,14 @@ function addColor() {
        red: Math.floor(Math.random() * 256),
        green: Math.floor(Math.random() * 256),
        blue: Math.floor(Math.random() * 256),
-       id: `${colorArray.length}`,
+       id: `${colorArray.length.toString()}`,
      },
    ]);
  }
 
-  function renderItem({ item }) {
-    return <BlockRGB red={item.red} green={item.green} blue={item.blue} />;
-  }
+function resetColor() {
+  setColorArray([]);
+}
 
   return (
     <View style={styles.container}>
@@ -36,6 +40,14 @@ function addColor() {
      >
        <Text style={{ color: "tomato", textAlign: "center" }}>Add colour</Text>
      </TouchableOpacity>
+
+     <TouchableOpacity
+       style={{ height: 40, justifyContent: "center", width: "25%", backgroundColor: "brown", margin: 10, borderRadius: 10 }}
+       onPress={resetColor}
+     >
+       <Text style={{ color: "violet", textAlign: "center" }}>Reset</Text>
+     </TouchableOpacity>
+
       <FlatList
         style={{ width: "100%" }}
         data={colorArray}
