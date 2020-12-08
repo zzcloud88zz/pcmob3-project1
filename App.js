@@ -60,7 +60,22 @@ function resetColor() {
 }
 
 function DetailsScreen({ route }) {
-  return <Text>Er... more stuff here soon?</Text>;
+  const { red, green, blue } = route.params;
+  
+  return (
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: `rgb(${red}, ${green}, ${blue})` },
+      ]}
+    >
+      <View style={{ padding: 30 }}>
+        <Text style={styles.detailText}>Red: {red}</Text>
+        <Text style={styles.detailText}>Green: {green}</Text>
+        <Text style={styles.detailText}>Blue: {blue}</Text>
+      </View>
+    </View>
+  );
  }
 
 const Stack = createStackNavigator();
@@ -82,4 +97,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
   },
+  detailText: {
+    fontSize: 36,
+    padding: 20,
+  }
 });
