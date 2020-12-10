@@ -2,14 +2,14 @@ import React from "react";
 import { View, Text } from "react-native";
 
 export default function BlockRGB(props) {
- return (
-   <View
-     style={{
-       backgroundColor: `rgb(${props.red}, ${props.green}, ${props.blue})`,
-       padding: 30,
-       width: "60",
-       height: "60",
-     }}
-   ></View>
- );
+  return (
+    <View
+      style={[
+        props.style,
+        {
+          backgroundColor: `rgb(${props.red}, ${props.green}, ${props.blue})`,
+        },
+      ]}
+    ></View>
+  );
 }

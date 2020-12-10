@@ -12,6 +12,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import BlockRGB from "./components/BlockRGB";
 
+const NUM_COLUMNS = 5;
+
 function HomeScreen({ navigation }) {
   const [colorArray, setColorArray] = useState([]);
 
@@ -27,7 +29,7 @@ function HomeScreen({ navigation }) {
       <TouchableOpacity
         onPress={() => navigation.navigate("DetailsScreen", { ...item })}
       >
-        <BlockRGB red={item.red} green={item.green} blue={item.blue} />
+        <BlockRGB style={{ height: 60, width: 60 }} red={item.red} green={item.green} blue={item.blue} />
       </TouchableOpacity>
     );
   }
@@ -49,12 +51,12 @@ function HomeScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>      
+    <View style={styles.container}>
       <FlatList
         style={{ width: "100%" }}
         data={colorArray}
         renderItem={renderItem}
-        numColumns={4}
+        numColumns={NUM_COLUMNS}
       />
     </View>
   );
