@@ -18,11 +18,6 @@ function HomeScreen({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => <Button onPress={addColor} title="Add Color" />,
-    });
-  });
-
-  useEffect(() => {
-    navigation.setOptions({
       headerLeft: () => <Button onPress={resetColor} title="Reset Color" />,
     });
   });
@@ -59,6 +54,7 @@ function HomeScreen({ navigation }) {
         style={{ width: "100%" }}
         data={colorArray}
         renderItem={renderItem}
+        numColumns={4}
       />
     </View>
   );
